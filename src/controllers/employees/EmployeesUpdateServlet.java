@@ -70,11 +70,11 @@ public class EmployeesUpdateServlet extends HttpServlet {
             e.setAdmin_flag(Integer.parseInt(request.getParameter("admin_flag")));
             e.setUpdated_at(new Timestamp(System.currentTimeMillis()));
             e.setDelete_flag(0);
-
+          //バリデーション
             List<String> errors = EmployeeValidator.validate(e, code_duplicate_check, password_check_flag);
             if(errors.size() > 0) {
                 em.close();
-
+              //リクエストスコープにセット
                 request.setAttribute("_token", request.getSession().getId());
                 request.setAttribute("employee", e);
                 request.setAttribute("errors", errors);
@@ -82,9 +82,11 @@ public class EmployeesUpdateServlet extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/employees/edit.jsp");
                 rd.forward(request, response);
             } else {
+              //データベースに保存
                 em.getTransaction().begin();
                 em.getTransaction().commit();
                 em.close();
+              //フラッシュメッセージ
                 request.getSession().setAttribute("flush", "更新が完了しました。");
 
                 request.getSession().removeAttribute("employee_id");
