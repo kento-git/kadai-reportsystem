@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import models.Employee;
 import utils.DBUtil;
 import utils.EncryptUtil;
-
 /**
  * Servlet implementation class LoginServlet
  */
@@ -51,7 +50,7 @@ public class LoginServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-     // 認証結果を格納する変数
+        // 認証結果を格納する変数
         Boolean check_result = false;
 
         String code = request.getParameter("code");
